@@ -7,6 +7,8 @@ public class EnvironmentInf extends Environment implements IEnvironmentInf {
 
     public EnvironmentInf(Game game) {
         super(game);
+        this.lanes.add(new Lane(game, game.height-1));
+
     }
 
     @Override
