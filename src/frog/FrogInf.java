@@ -1,10 +1,9 @@
 package frog;
 
 import gameCommons.Game;
-import gameCommons.IFrogInf;
 import util.Direction;
 
-public class FrogInf extends Frog implements IFrogInf {
+public class FrogInf extends Frog{
 
     private boolean movedUp;
     private boolean movedDown;
@@ -13,10 +12,6 @@ public class FrogInf extends Frog implements IFrogInf {
         super(game);
     }
 
-    /**
-     * Déplace la grenouille ou la grille dans une direction donnée
-     * @param key
-     */
     @Override
     public void move(Direction key) {
         lastDirection = key;
@@ -39,7 +34,6 @@ public class FrogInf extends Frog implements IFrogInf {
                 break;
         }
     }
-
 
     @Override
     public void resetBools() {

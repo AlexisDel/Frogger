@@ -22,13 +22,13 @@ public class Game {
 	public final double defaultDensity;
 
 	//Gestion du score
-	private int maxScore;
-	private int score;
-	private int highestScoreEver;
+	public int maxScore;
+	public int score;
+	public int highestScoreEver;
 
 	// Lien aux objets utilis�s
-	private IEnvironmentInf environment;
-	private IFrogInf frog;
+	private IEnvironment environment;
+	private IFrog frog;
 	private IFroggerGraphics graphic;
 
 	/**
@@ -58,21 +58,19 @@ public class Game {
 	}
 
 	/**
-	 * Lie l'objet frogInf � la partie
-	 *
-	 * @param frogInf
+	 * Lie l'objet frogInf à la partie
+	 * @param frog
 	 */
-	public void setFrog(IFrogInf frogInf) {
-		this.frog = frogInf;
+	public void setFrog(IFrog frog) {
+		this.frog = frog;
 	}
 
 	/**
-	 * Lie l'objet environmentInf a la partie
-	 *
-	 * @param environmentInf
+	 * Lie l'objet environment à la partie
+	 * @param environment
 	 */
-	public void setEnvironment(IEnvironmentInf environmentInf) {
-		this.environment = environmentInf;
+	public void setEnvironment(IEnvironment environment) {
+		this.environment = environment;
 	}
 
 	/**
@@ -84,12 +82,10 @@ public class Game {
 	}
 
 	/**
-	 * Teste si la partie est perdue et lance un �cran de fin appropri� si tel
-	 * est le cas
-	 *
+	 * Teste si la partie est perdue (mode de jeu infini) et lance un �cran de fin appropri� si tel est le cas
 	 * @return true si le partie est perdue
 	 */
-	public boolean testLose() {
+	public boolean testLoseInf() {
 		if(!this.environment.isSafe(this.frog.getPosition())){
 			this.graphic.endGameScreen("YOU LOST",this.score,this.highestScoreEver);
 		}
@@ -97,78 +93,50 @@ public class Game {
 	}
 
 	/**
-	 * Lie le meilleur score dans le fichier "HighestScore.txt" et écrit dedans si le HighestScoreEver a été battu
-	 * @param score
+	 * Teste si la partie est perdue (mode de jeu fini) et lance un écran de fin approprié si tel est le cas
+	 * @return true si le partie est perdue
 	 */
-	public void saveAndReadScore(int score) {
-
-		File highestScore = new File("HighestScore.txt");
-
-		//Récupération du meilleur score
-		String data = "";
-		try {
-			if(!highestScore.exists()){
-				highestScore.createNewFile();
-				FileWriter highestScoreWriter = new FileWriter("HighestScore.txt");
-				highestScoreWriter.write("" + 1);
-				highestScoreWriter.close();
-			}
-			Scanner highestScoreReader = new Scanner(highestScore);
-			if (highestScoreReader.hasNextLine()) {
-				data = highestScoreReader.nextLine();
-			}
-			highestScoreEver = Integer.parseInt(data);
-			highestScoreReader.close();
-		} catch (FileNotFoundException e){
-			System.out.println("An error occurred.");
-			e.printStackTrace();
-		} catch (IOException e) {
-			System.out.println("An error occurred.");
-			e.printStackTrace();
+	public boolean testLose() {
+		if (!environment.isSafe(frog.getPosition())){
+			graphic.endGameScreen("Lose");
+			return true;
 		}
+		return false;
+	}
 
-		//Sauvegarde du meilleur score
-		if (score > highestScoreEver) {
-			highestScoreEver = score;
-			try {
-				FileWriter highestScoreWriter = new FileWriter("HighestScore.txt");
-				highestScoreWriter.write("" + score);
-				highestScoreWriter.close();
-			} catch (IOException e){
-				System.out.println("An error occurred.");
-				e.printStackTrace();
-			}
+	/**
+	 * Teste si la partie est gagnée (mode de jeu fini) et lance un �cran de fin appropri� si tel est le cas
+	 * @return true si la partie est gagn�e
+	 */
+	public boolean testWin() {
+		if (environment.isWinningPosition(frog.getPosition())){
+			graphic.endGameScreen("Win");
+			return true;
 		}
+		return false;
+	}
+
+	/**
+	 * getter
+	 * @return frog
+	 */
+	public IFrog getFrog() {
+		return frog;
 	}
 
 	/**
 	 * Actualise l'environnement, affiche la grenouille et gère le score
 	 * partie.
 	 */
-	public void update() {
+	public void update(boolean gamemodeInf) {
 		graphic.clear();
 		environment.update();
 		this.graphic.add(new Element(frog.getPosition(), Color.GREEN));
-
-		if(frog.isMovedUp()){
-			score++;
-			if(score > maxScore){
-				maxScore = score;
-				environment.addTopLane();
-			}
-			graphic.clear();
-			environment.update(true);
+		if(gamemodeInf) {
+			testLoseInf();
+		} else {
+			testLose();
+			testWin();
 		}
-
-		else if (frog.isMovedDown() && score>0) {
-			score--;
-			graphic.clear();
-			environment.update(false);
-		}
-
-		frog.resetBools();
-		saveAndReadScore(maxScore);
-		testLose();
 	}
-
 }

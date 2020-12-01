@@ -3,25 +3,29 @@
 #### Statut : :heavy_check_mark:
 
 #### Ajouts :
-1. FrogInf
-    * resetBools
-    * isMovedUp
-    * isMovedDown
-2. Car
-    * slide
-3. Lane
-    * slideLane
+1. Car
+   * slide
+2. Lane
+   * slideLane
+3. FrogInf
+   * resetBools
+   * isMovedUp
+   * isMovedDown   
 4. EnvironmentInf
-    * slideRoad
-    * addTopLane
-4. Game
-    * saveAndReadScore
+   * slideRoad
+   * addTopLane
+   * saveAndReadScore
+    
 
 #### Modifications :
 1. Main
-    * Utilisation IFrogInf et IEnvironmentInf
-2. Game 
-    * Changement de la definition de testLoose
-    * Gestion du score dans update
+   * Choix du mode de jeu via
+2. Game
+   * Gestion de la fin de la partie en fonction du mode de jeu
 3. FroggerGraphic
-    * Ajout de l'affichage du score, du meilleur score, et du meilleur score de tout les temps.
+   * Ajout de l'affichage du score, du meilleur score, et du meilleur score de tout les temps.
+4. FrogInf
+   * Gestion des déplacements de la grille
+5. EnvironmentInf
+   * Gestion du score
+   

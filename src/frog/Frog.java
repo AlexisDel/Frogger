@@ -59,4 +59,33 @@ public class Frog implements IFrog {
 				break;
 		}
 	}
+
+	//Fonctions inutiles à la classe Frog mais obligatoire du à IFrog :
+	// isMovedUp, isMovedDown, resetBools
+
+	/**
+	 * DONT USE IT
+	 * @return false
+	 */
+	@Override
+	public boolean isMovedUp() {
+		return false;
+	}
+
+	/**
+	 * DONT USE IT
+	 * @return false
+	 */
+	@Override
+	public boolean isMovedDown() {
+		return false;
+	}
+
+	/**
+	 * DONT USE IT
+	 */
+	@Override
+	public void resetBools() {
+
+	}
 }

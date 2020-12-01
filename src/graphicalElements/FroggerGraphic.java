@@ -77,6 +77,17 @@ public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListe
 		this.frog = frog;
 	}
 
+	public void endGameScreen(String s) {
+		frame.remove(this);
+		JLabel label = new JLabel(s);
+		label.setFont(new Font("Verdana", 1, 20));
+		label.setHorizontalAlignment(SwingConstants.CENTER);
+		label.setSize(this.getSize());
+		frame.getContentPane().add(label);
+		frame.repaint();
+
+	}
+
 	public void endGameScreen(String s, int sc, int highSE) {
 		frame.remove(this);
 
@@ -103,5 +114,4 @@ public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListe
 		frame.repaint();
 
 	}
-
 }

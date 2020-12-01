@@ -30,5 +30,13 @@ public interface IFroggerGraphics {
      * Lance un �cran de fin de partie
      * @param message le texte � afficher
      */
+    public void endGameScreen(String message);
+
+    /**
+     * Lance l'écran de fin de partie
+     * @param message
+     * @param sc
+     * @param highSE
+     */
     public void endGameScreen(String message, int sc, int highSE);
 }

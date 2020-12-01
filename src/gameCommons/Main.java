@@ -22,24 +22,34 @@ public class Main {
 		int tempo = 100;
 		int minSpeedInTimerLoops = 3;
 		double defaultDensity = 0.2;
+		boolean gamemodeInf = true;
 		
 		//Cr�ation de l'interface graphique
 		IFroggerGraphics graphic = new FroggerGraphic(width, height);
 		//Cr�ation de la partie
 		Game game = new Game(graphic, width, height, minSpeedInTimerLoops, defaultDensity);
-		//Cr�ation et liason de la grenouille
-		IFrogInf frog = new FrogInf(game);
+
+		//Création de la grenouille et de l'environement
+		IFrog frog;
+		IEnvironment env;
+		if (gamemodeInf) {
+			frog = new FrogInf(game);
+			env = new EnvironmentInf(game);
+		} else {
+			frog = new Frog(game);
+			env = new Environment(game);
+		}
+
+		//Lisaison de la grenouille et de l'environement
 		game.setFrog(frog);
 		graphic.setFrog(frog);
-		//Cr�ation et liaison de l'environnement
-		IEnvironmentInf env = new EnvironmentInf(game);
 		game.setEnvironment(env);
 				
 		//Boucle principale : l'environnement s'acturalise tous les tempo milisecondes
 		Timer timer = new Timer(tempo, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				game.update();
+				game.update(gamemodeInf);
 				graphic.repaint();
 			}
 		});

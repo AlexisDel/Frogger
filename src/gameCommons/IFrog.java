@@ -18,10 +18,26 @@ public interface IFrog {
 	Direction getDirection();
 	
 	/**
-	 * D�place la grenouille dans la direction donn�e et teste la fin de partie
+	 * D�place la grenouille dans la direction donn�e
+	 * Si FrogInf : Gestion des variables de dépélacement de la grilles (movedUp & movedDown)
 	 * @param key
 	 */
 	void move(Direction key);
 
+	/**
+	 * getter
+	 * @return movedUp
+	 */
+	boolean isMovedUp();
 
+	/**
+	 * getter
+	 * @return movedDown
+	 */
+	boolean isMovedDown();
+
+	/**
+	 * Reset les varabiables de déplacement vertical (movedUp & movedDown)
+	 */
+	void resetBools();
 }

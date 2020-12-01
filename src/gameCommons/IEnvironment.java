@@ -24,6 +24,8 @@ public interface IEnvironment {
 
 	/**
 	 * Effectue une �tape d'actualisation de l'environnement
+	 * Si FrogInf : Gestion du score
 	 */
 	public void update();
+
 }
