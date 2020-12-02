@@ -15,6 +15,8 @@
    * slideRoad
    * addTopLane
    * saveAndReadScore
+5. Game
+   * getElapsedTimeHoursMinutesFromStart
     
 
 #### Modifications :

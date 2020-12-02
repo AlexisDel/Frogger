@@ -82,7 +82,7 @@ public class Game {
 		return graphic;
 	}
 
-	private String getElapsedTimeHoursMinutes(){
+	private String getElapsedTimeHoursMinutesFromStart(){
 		String format = String.format("%%0%dd", 2);
 		long elapsedTime = (System.nanoTime() - clockStart) / 1000000000;
 		String seconds = String.format(format, elapsedTime % 60);
@@ -98,7 +98,7 @@ public class Game {
 	 */
 	public boolean testLoseInf() {
 		if(!this.environment.isSafe(this.frog.getPosition())){
-			this.graphic.endGameScreen("YOU LOST",this.score,this.highestScoreEver, getElapsedTimeHoursMinutes());
+			this.graphic.endGameScreen("YOU LOST",this.score,this.highestScoreEver, getElapsedTimeHoursMinutesFromStart());
 			isGameFinished = true;
 			return true;
 		}
