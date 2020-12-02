@@ -82,7 +82,7 @@ public class Game {
 		return graphic;
 	}
 
-	private String getElapsedTimeHoursMinutesFromStart(){
+	private String getElapsedTimeHoursMinutesSecondsFromStart(){
 		String format = String.format("%%0%dd", 2);
 		long elapsedTime = (System.nanoTime() - clockStart) / 1000000000;
 		String seconds = String.format(format, elapsedTime % 60);
@@ -98,7 +98,7 @@ public class Game {
 	 */
 	public boolean testLoseInf() {
 		if(!this.environment.isSafe(this.frog.getPosition())){
-			this.graphic.endGameScreen("YOU LOST",this.score,this.highestScoreEver, getElapsedTimeHoursMinutesFromStart());
+			this.graphic.endGameScreen("YOU LOST",this.score,this.highestScoreEver, getElapsedTimeHoursMinutesSecondsFromStart());
 			isGameFinished = true;
 			return true;
 		}
@@ -111,7 +111,7 @@ public class Game {
 	 */
 	public boolean testLose() {
 		if (!environment.isSafe(frog.getPosition())){
-			graphic.endGameScreen("Lose");
+			graphic.endGameScreen("Lose",getElapsedTimeHoursMinutesSecondsFromStart());
 			isGameFinished = true;
 			return true;
 		}
@@ -124,7 +124,7 @@ public class Game {
 	 */
 	public boolean testWin() {
 		if (environment.isWinningPosition(frog.getPosition())){
-			graphic.endGameScreen("Win");
+			graphic.endGameScreen("Win",getElapsedTimeHoursMinutesSecondsFromStart());
 			return true;
 		}
 		return false;

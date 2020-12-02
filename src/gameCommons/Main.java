@@ -22,7 +22,7 @@ public class Main {
 		int tempo = 100;
 		int minSpeedInTimerLoops = 3;
 		double defaultDensity = 0.2;
-		boolean gamemodeInf = true;
+		boolean gamemodeInf = false;
 		long clockStart = System.nanoTime();
 		
 		//Cr�ation de l'interface graphique

@@ -34,3 +34,6 @@
 5. EnvironmentInf
    * Gestion du score.
    
+#### TODO : 
+   * Sauvegarder le meilleur temps en cas de win dans un fichier (le même que celui du score)
+   

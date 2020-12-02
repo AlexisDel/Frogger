@@ -77,13 +77,25 @@ public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListe
 		this.frog = frog;
 	}
 
-	public void endGameScreen(String s) {
+	public void endGameScreen(String s, String clk) {
 		frame.remove(this);
+
 		JLabel label = new JLabel(s);
 		label.setFont(new Font("Verdana", 1, 20));
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setSize(this.getSize());
+
+		JLabel clock= new JLabel("Time : " + clk);
+		clock.setFont(new Font("Verdana", 1, 20));
+		clock.setHorizontalAlignment(JLabel.CENTER);
+		clock.setVerticalAlignment(JLabel.CENTER);
+		clock.setLocation(0,25);
+		clock.setSize(this.getSize());
+
+
 		frame.getContentPane().add(label);
+		frame.getContentPane().add(clock);
+
 		frame.repaint();
 
 	}

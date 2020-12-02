@@ -25,18 +25,20 @@ public interface IFroggerGraphics {
      * @param frog
      */
     public void setFrog(IFrog frog);
-    
+
     /**
-     * Lance un �cran de fin de partie
-     * @param message le texte � afficher
+     * Lance l'écran de fin de partie
+     * @param message
+     * @param clk
      */
-    public void endGameScreen(String message);
+    public void endGameScreen(String message, String clk);
 
     /**
      * Lance l'écran de fin de partie
      * @param message
      * @param sc
      * @param highSE
+     * @param clk
      */
     public void endGameScreen(String message, int sc, int highSE, String clk);
 }
