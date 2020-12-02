@@ -23,11 +23,12 @@ public class Main {
 		int minSpeedInTimerLoops = 3;
 		double defaultDensity = 0.2;
 		boolean gamemodeInf = true;
+		long clockStart = System.nanoTime();
 		
 		//Cr�ation de l'interface graphique
 		IFroggerGraphics graphic = new FroggerGraphic(width, height);
 		//Cr�ation de la partie
-		Game game = new Game(graphic, width, height, minSpeedInTimerLoops, defaultDensity);
+		Game game = new Game(graphic, width, height, minSpeedInTimerLoops, defaultDensity, clockStart);
 
 		//Création de la grenouille et de l'environement
 		IFrog frog;
@@ -40,6 +41,7 @@ public class Main {
 			env = new Environment(game);
 		}
 
+
 		//Lisaison de la grenouille et de l'environement
 		game.setFrog(frog);
 		graphic.setFrog(frog);
@@ -49,8 +51,10 @@ public class Main {
 		Timer timer = new Timer(tempo, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				game.update(gamemodeInf);
-				graphic.repaint();
+				if (!game.isGameFinished) {
+					game.update(gamemodeInf);
+					graphic.repaint();
+				}
 			}
 		});
 		timer.setInitialDelay(0);

@@ -88,7 +88,7 @@ public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListe
 
 	}
 
-	public void endGameScreen(String s, int sc, int highSE) {
+	public void endGameScreen(String s, int sc, int highSE, String clk) {
 		frame.remove(this);
 
 		JLabel statement = new JLabel(s);
@@ -108,9 +108,20 @@ public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListe
 		maxScoreEver.setVerticalAlignment(JLabel.BOTTOM);
 		maxScoreEver.setSize(this.getSize());
 
-		frame.getContentPane().add( maxScoreEver);
-		frame.getContentPane().add(score);
+
+		JLabel clock= new JLabel("Time : " + clk);
+		clock.setFont(new Font("Verdana", 1, 20));
+		clock.setHorizontalAlignment(0);
+		clock.setVerticalAlignment(JLabel.NORTH);
+		clock.setLocation(0,25);
+		clock.setSize(this.getSize());
+
+
 		frame.getContentPane().add(statement);
+		frame.getContentPane().add(score);
+		frame.getContentPane().add(maxScoreEver);
+		frame.getContentPane().add(clock);
+
 		frame.repaint();
 
 	}

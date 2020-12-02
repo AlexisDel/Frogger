@@ -1,12 +1,7 @@
 package gameCommons;
 
 import java.awt.Color;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Random;
-import java.util.Scanner;
 
 import graphicalElements.Element;
 import graphicalElements.IFroggerGraphics;
@@ -20,11 +15,15 @@ public class Game {
 	public final int height;
 	public final int minSpeedInTimerLoops;
 	public final double defaultDensity;
+	boolean isGameFinished;
 
 	//Gestion du score
 	public int maxScore;
 	public int score;
 	public int highestScoreEver;
+
+	//Clock
+	private long clockStart;
 
 	// Lien aux objets utilis�s
 	private IEnvironment environment;
@@ -44,13 +43,15 @@ public class Game {
 	 * @param defaultDensity
 	 *            densite de voiture utilisee par defaut pour les routes
 	 */
-	public Game(IFroggerGraphics graphic, int width, int height, int minSpeedInTimerLoop, double defaultDensity) {
+	public Game(IFroggerGraphics graphic, int width, int height, int minSpeedInTimerLoop, double defaultDensity, long clockStart) {
 		super();
 		this.graphic = graphic;
 		this.width = width;
 		this.height = height;
 		this.minSpeedInTimerLoops = minSpeedInTimerLoop;
 		this.defaultDensity = defaultDensity;
+		this.clockStart = clockStart;
+		this.isGameFinished = false;
 
 		this.maxScore = 0;
 		this.score = 0;
@@ -81,13 +82,25 @@ public class Game {
 		return graphic;
 	}
 
+	private String getElapsedTimeHoursMinutes(){
+		String format = String.format("%%0%dd", 2);
+		long elapsedTime = (System.nanoTime() - clockStart) / 1000000000;
+		String seconds = String.format(format, elapsedTime % 60);
+		String minutes = String.format(format, (elapsedTime % 3600) / 60);
+		String hours = String.format(format, elapsedTime / 3600);
+		String time =  hours + ":" + minutes + ":" + seconds;
+		return time;
+	}
+
 	/**
 	 * Teste si la partie est perdue (mode de jeu infini) et lance un �cran de fin appropri� si tel est le cas
 	 * @return true si le partie est perdue
 	 */
 	public boolean testLoseInf() {
 		if(!this.environment.isSafe(this.frog.getPosition())){
-			this.graphic.endGameScreen("YOU LOST",this.score,this.highestScoreEver);
+			this.graphic.endGameScreen("YOU LOST",this.score,this.highestScoreEver, getElapsedTimeHoursMinutes());
+			isGameFinished = true;
+			return true;
 		}
 		return false;
 	}
@@ -99,6 +112,7 @@ public class Game {
 	public boolean testLose() {
 		if (!environment.isSafe(frog.getPosition())){
 			graphic.endGameScreen("Lose");
+			isGameFinished = true;
 			return true;
 		}
 		return false;

@@ -38,5 +38,5 @@ public interface IFroggerGraphics {
      * @param sc
      * @param highSE
      */
-    public void endGameScreen(String message, int sc, int highSE);
+    public void endGameScreen(String message, int sc, int highSE, String clk);
 }
