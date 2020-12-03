@@ -11,6 +11,7 @@ import frog.Frog;
 import frog.FrogInf;
 import graphicalElements.FroggerGraphic;
 import graphicalElements.IFroggerGraphics;
+import graphicalElements.StartScreen;
 
 public class Main {
 
@@ -22,18 +23,28 @@ public class Main {
 		int tempo = 100;
 		int minSpeedInTimerLoops = 3;
 		double defaultDensity = 0.2;
-		boolean gamemodeInf = false;
+
 		long clockStart = System.nanoTime();
-		
+
+		//Fenêtre du choix du mode de jeu
+		StartScreen startScreen = new StartScreen(width, height);
+		while (StartScreen.startScreen){
+			try {
+				Thread.sleep(200);
+			} catch(InterruptedException e) {}
+		}
+
 		//Cr�ation de l'interface graphique
 		IFroggerGraphics graphic = new FroggerGraphic(width, height);
 		//Cr�ation de la partie
 		Game game = new Game(graphic, width, height, minSpeedInTimerLoops, defaultDensity, clockStart);
+		game.gamemodeInf = StartScreen.gamemodeInf;
+
 
 		//Création de la grenouille et de l'environement
 		IFrog frog;
 		IEnvironment env;
-		if (gamemodeInf) {
+		if (game.gamemodeInf) {
 			frog = new FrogInf(game);
 			env = new EnvironmentInf(game);
 		} else {
@@ -52,7 +63,7 @@ public class Main {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (!game.isGameFinished) {
-					game.update(gamemodeInf);
+					game.update(game.gamemodeInf);
 					graphic.repaint();
 				}
 			}

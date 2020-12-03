@@ -15,7 +15,8 @@ public class Game {
 	public final int height;
 	public final int minSpeedInTimerLoops;
 	public final double defaultDensity;
-	boolean isGameFinished;
+	public boolean isGameFinished;
+	public boolean gamemodeInf;
 
 	//Gestion du score
 	public int maxScore;

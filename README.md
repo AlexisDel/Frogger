@@ -2,7 +2,7 @@
 
 #### Statut : :heavy_check_mark:
 
-#### Ajouts :
+#### Classes et méthodes ajoutées :
 1. Car
    * slide
 2. Lane
@@ -17,9 +17,9 @@
    * saveAndReadScore
 5. Game
    * getElapsedTimeHoursMinutesFromStart
-    
+6. StartScreen    
 
-#### Modifications :
+#### Modifications / Ajouts :
 1. Main
    * Choix du mode de jeu via.
    * Fix : Fin de la partie => n'update plus l'environement.
@@ -33,7 +33,10 @@
    * Gestion des déplacements de la grille.
 5. EnvironmentInf
    * Gestion du score.
+6. StartScreen
+   * Choix du mode de jeu via une interface graphique (fenetre indépendantes)
    
 #### TODO : 
    * Sauvegarder le meilleur temps en cas de win dans un fichier (le même que celui du score)
+   * 1 seule fenêtre pour le choix du mode de jeu et le jeu. (clean le code)
    
