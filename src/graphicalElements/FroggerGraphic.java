@@ -140,48 +140,4 @@ public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListe
 
 		frame.repaint();
 	}
-
-	public void startGameScreen(Game game){
-		JPanel panel = new JPanel(new GridBagLayout());
-
-		JButton infiniteGamemode = new JButton("Infinite Gamemode");
-		infiniteGamemode.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent actionEvent) {
-				game.gamemodeInf = true;
-			}
-		});
-		panel.add(infiniteGamemode, new GridBagConstraints());
-
-		JButton finiteGamemode = new JButton("Finite Gamemode");
-		finiteGamemode.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent actionEvent) {
-				game.gamemodeInf = false;
-			}
-		});
-		panel.add(finiteGamemode, new GridBagConstraints());
-
-		JLabel froggerImage = new JLabel(new ImageIcon("frogger.png"));
-		froggerImage.setVerticalAlignment(JLabel.NORTH);
-
-		frame.getContentPane().add(froggerImage);
-		frame.getContentPane().add(panel);
-		frame.setVisible(true);
-
-		frame.repaint();
-
-		try{
-			Thread.sleep(5000);
-		} catch (InterruptedException e){
-
-		}
-
-	}
-
-	public void test(){
-
-		frame.remove(this);
-
-	}
 }
