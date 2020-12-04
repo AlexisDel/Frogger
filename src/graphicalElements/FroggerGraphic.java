@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListener {
 	private ArrayList<Element> elementsToDisplay;
-	public static int pixelByCase = 32;
+	public static int pixelByCase = 16;
 	private int width;
 	private int height;
 	private IFrog frog;

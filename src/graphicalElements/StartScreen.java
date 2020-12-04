@@ -4,10 +4,13 @@ package graphicalElements;
 import gameCommons.Game;
 import gameCommons.Main;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 public class StartScreen extends JFrame {
 
@@ -15,7 +18,7 @@ public class StartScreen extends JFrame {
     public static boolean startScreen = true;
     private JFrame frame;
 
-    public StartScreen(int width, int height) {
+    public StartScreen(int width, int height) throws IOException {
 
 
         this.frame = this;
@@ -29,7 +32,7 @@ public class StartScreen extends JFrame {
 
         GridBagConstraints gbc = new GridBagConstraints();
 
-        JButton infiniteGamemode = new JButton("Infinite Gamemode");
+        JButton infiniteGamemode = new JButton("Infinite");
         infiniteGamemode.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -40,7 +43,7 @@ public class StartScreen extends JFrame {
             }
         });
 
-        JButton finiteGamemode = new JButton("Finite Gamemode");
+        JButton finiteGamemode = new JButton("Finite");
         finiteGamemode.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -51,7 +54,13 @@ public class StartScreen extends JFrame {
             }
         });
 
-        JLabel froggerImage = new JLabel(new ImageIcon("ressources/frogger.png"));
+
+        Image froggerLogo =  ImageIO.read(new File("ressources","frogger.png"));
+        int scaledWidth = (int) ((FroggerGraphic.pixelByCase / 32.0) * froggerLogo.getWidth(null));
+        int scaledHeight = (int) ((FroggerGraphic.pixelByCase / 32.0) * froggerLogo.getHeight(null));
+        froggerLogo = froggerLogo.getScaledInstance(scaledWidth,  scaledWidth, Image.SCALE_SMOOTH);
+        JLabel froggerImage = new JLabel(new ImageIcon(froggerLogo));
+
 
         gbc.gridx = 0;
         contentPane.add(infiniteGamemode, gbc);
