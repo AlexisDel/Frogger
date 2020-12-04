@@ -1,30 +1,33 @@
 package graphicalElements;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import gameCommons.Game;
 import gameCommons.IFrog;
 import util.Direction;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListener {
 	private ArrayList<Element> elementsToDisplay;
-	private int pixelByCase = 16;
+	public static int pixelByCase = 32;
 	private int width;
 	private int height;
 	private IFrog frog;
 	private JFrame frame;
+	public static BufferedImage frogImage;
 
-	public FroggerGraphic(int width, int height) {
+	public FroggerGraphic(int width, int height) throws IOException {
 		this.width = width;
 		this.height = height;
 		elementsToDisplay = new ArrayList<Element>();
+		this.frogImage =  ImageIO.read(new File("ressources","frog.png"));
 
 		setBackground(Color.GRAY);
 		setPreferredSize(new Dimension(width * pixelByCase, height * pixelByCase));
@@ -42,8 +45,13 @@ public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListe
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		for (Element e : elementsToDisplay) {
-			g.setColor(e.color);
-			g.fillRect(pixelByCase * e.absc, pixelByCase * (height - 1 - e.ord), pixelByCase, pixelByCase - 1);
+			if(e.isImage) {
+				g.drawImage(e.image, pixelByCase * e.absc, pixelByCase * (height - 1 - e.ord), null);
+			}
+			else {
+				g.setColor(e.color);
+				g.fillRect(pixelByCase * e.absc, pixelByCase * (height - 1 - e.ord), pixelByCase, pixelByCase - 1);
+			}
 		}
 	}
 

@@ -17,12 +17,17 @@ public class StartScreen extends JFrame {
 
     public StartScreen(int width, int height) {
 
-        setTitle("Frogger");
-        setSize(width*16, height*16);
 
         this.frame = this;
+        frame.setLayout(new BorderLayout());
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setTitle("Frogger");
 
-        JPanel panel = new JPanel(new GridBagLayout());
+        JPanel contentPane = new JPanel();
+        contentPane.setBackground(Color.WHITE);
+        contentPane.setLayout(new GridBagLayout());
+
+        GridBagConstraints gbc = new GridBagConstraints();
 
         JButton infiniteGamemode = new JButton("Infinite Gamemode");
         infiniteGamemode.addActionListener(new ActionListener() {
@@ -34,7 +39,6 @@ public class StartScreen extends JFrame {
 
             }
         });
-        panel.add(infiniteGamemode, new GridBagConstraints());
 
         JButton finiteGamemode = new JButton("Finite Gamemode");
         finiteGamemode.addActionListener(new ActionListener() {
@@ -46,14 +50,24 @@ public class StartScreen extends JFrame {
 
             }
         });
-        panel.add(finiteGamemode, new GridBagConstraints());
 
         JLabel froggerImage = new JLabel(new ImageIcon("ressources/frogger.png"));
-        froggerImage.setVerticalAlignment(JLabel.NORTH);
 
-        this.getContentPane().add(froggerImage);
-        setVisible(true);
-        this.getContentPane().add(panel);
-        setVisible(true);
+        gbc.gridx = 0;
+        contentPane.add(infiniteGamemode, gbc);
+
+        gbc.gridx = 2;
+        contentPane.add(finiteGamemode, gbc);
+
+        gbc.gridx = 1;
+        gbc.anchor = GridBagConstraints.NORTH;
+        gbc.weighty = 1;
+        contentPane.add(froggerImage, gbc);
+
+        frame.setContentPane(contentPane);
+        frame.setSize(width*FroggerGraphic.pixelByCase, height*FroggerGraphic.pixelByCase);
+        frame.setVisible(true);
+
+
     }
 }

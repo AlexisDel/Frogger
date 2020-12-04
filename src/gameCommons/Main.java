@@ -2,6 +2,7 @@ package gameCommons;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.Timer;
 
@@ -15,7 +16,7 @@ import graphicalElements.StartScreen;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 
 		//Caract�ristiques du jeu
 		int width = 26;
@@ -63,7 +64,11 @@ public class Main {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (!game.isGameFinished) {
-					game.update(game.gamemodeInf);
+					try {
+						game.update(game.gamemodeInf);
+					} catch (IOException ioException) {
+						ioException.printStackTrace();
+					}
 					graphic.repaint();
 				}
 			}

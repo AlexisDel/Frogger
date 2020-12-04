@@ -1,10 +1,16 @@
 package gameCommons;
 
-import java.awt.Color;
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.Random;
 
 import graphicalElements.Element;
+import graphicalElements.FroggerGraphic;
 import graphicalElements.IFroggerGraphics;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
 
 public class Game {
 
@@ -143,10 +149,10 @@ public class Game {
 	 * Actualise l'environnement, affiche la grenouille et gère le score
 	 * partie.
 	 */
-	public void update(boolean gamemodeInf) {
+	public void update(boolean gamemodeInf) throws IOException {
 		graphic.clear();
 		environment.update();
-		this.graphic.add(new Element(frog.getPosition(), Color.GREEN));
+		this.graphic.add(new Element(frog.getPosition(), FroggerGraphic.frogImage));
 		if(gamemodeInf) {
 			testLoseInf();
 		} else {
