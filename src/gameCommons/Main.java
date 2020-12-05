@@ -21,7 +21,6 @@ public class Main {
 		//Caract�ristiques du jeu
 		int tempo = 100;
 		int minSpeedInTimerLoops = 3;
-		double defaultDensity = 0.1;
 
 		long clockStart = System.nanoTime();
 
@@ -35,6 +34,7 @@ public class Main {
 		int width = startScreenGUI.gameWidth;
 		int height = startScreenGUI.gameHeight;
 		int pixelByCase = StartScreenGUI.pixelByCase;
+		double defaultDensity = StartScreenGUI.density;
 
 		//Cr�ation de l'interface graphique
 		IFroggerGraphics graphic = new FroggerGraphic(width, height, pixelByCase);

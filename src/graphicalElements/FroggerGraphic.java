@@ -20,8 +20,7 @@ public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListe
 	private int height;
 	private IFrog frog;
 	private JFrame frame;
-
-	private Image road;
+	
 	private static Image background;
 	public static Image frogImage;
 	public static Image carLtoRImage;

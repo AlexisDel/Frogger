@@ -17,6 +17,7 @@ public class StartScreenGUI {
     public static int gameWidth;
     public static int gameHeight;
     public static int pixelByCase;
+    public static double density;
 
     public StartScreenGUI() throws IOException {
 
@@ -71,8 +72,12 @@ public class StartScreenGUI {
             }
         });
 
+        JLabel difficultyLabel = new JLabel("Difficulty:");
+        caseSizeLabel.setFont(new Font("Verdana", 1, 15));
+        JComboBox difficultyBox = new JComboBox( new String[] {"Facile", "Moyen", "Difficile"} );
+
         JPanel panelSetting = new JPanel();
-        panelSetting.setLayout(new GridLayout(3,1));
+        panelSetting.setLayout(new GridLayout(4,3));
         panelSetting.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
         panelSetting.add(gamemodeLabel);
         panelSetting.add(infiniteGamemodeButton);
@@ -82,6 +87,9 @@ public class StartScreenGUI {
         panelSetting.add(gameHeightText);
         panelSetting.add(caseSizeLabel);
         panelSetting.add(caseSizeText);
+        panelSetting.add(new JLabel()); //Case vide (il y a surement une meilleur manière de faire)
+        panelSetting.add(difficultyLabel);
+        panelSetting.add(difficultyBox);
 
         JButton playButton = new JButton("Jouer");
         playButton.addActionListener(new ActionListener() {
@@ -90,6 +98,7 @@ public class StartScreenGUI {
                 gameWidth = Integer.parseInt(gameWidthText.getText());
                 gameHeight = Integer.parseInt(gameHeightText.getText());
                 pixelByCase = Integer.parseInt(caseSizeText.getText());
+                density = GetDensityFromDifficulty((String) difficultyBox.getSelectedItem());
                 startScreen = false;
                 frame.dispose();
             }
@@ -102,5 +111,16 @@ public class StartScreenGUI {
         frame.setTitle("Frogger");
         frame.pack();
         frame.setVisible(true);
+    }
+
+    private double GetDensityFromDifficulty(String s){
+        double density = 0.05;
+        if (s.equals("Moyen")){
+            return 0.1f;
+        }
+        else if (s.equals("Difficile")){
+            return 0.2f;
+        }
+        return density;
     }
 }
