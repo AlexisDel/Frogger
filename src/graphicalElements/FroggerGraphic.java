@@ -9,25 +9,42 @@ import util.Direction;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListener {
 	private ArrayList<Element> elementsToDisplay;
-	public static int pixelByCase = 16;
+	public static int pixelByCase = 32;
 	private int width;
 	private int height;
 	private IFrog frog;
 	private JFrame frame;
-	public static BufferedImage frogImage;
+
+	public static Image frogImage;
+	public static Image carLtoRImage;
+	public static Image carRtoLImage;
+	public static Image truckLtoRImage;
+	public static Image truckRtoLImage;
+
 
 	public FroggerGraphic(int width, int height) throws IOException {
 		this.width = width;
 		this.height = height;
 		elementsToDisplay = new ArrayList<Element>();
+
 		this.frogImage =  ImageIO.read(new File("ressources","frog.png"));
+		this.carLtoRImage =  ImageIO.read(new File("ressources","carL_R.png"));
+		this.carRtoLImage =  ImageIO.read(new File("ressources","carR_L.png"));
+		this.truckLtoRImage =  ImageIO.read(new File("ressources","truckL_R.png"));
+		this.truckRtoLImage =  ImageIO.read(new File("ressources","truckR_L.png"));
+
+		this.frogImage = frogImage.getScaledInstance((int) (FroggerGraphic.pixelByCase/32.0 * frogImage.getWidth(null)), (int) (FroggerGraphic.pixelByCase / 32.0 * frogImage.getHeight(null)), Image.SCALE_SMOOTH);
+		this.carLtoRImage = carLtoRImage.getScaledInstance((int) (FroggerGraphic.pixelByCase/32.0 * carLtoRImage.getWidth(null)), (int) (FroggerGraphic.pixelByCase / 32.0 * carLtoRImage.getHeight(null)), Image.SCALE_SMOOTH);
+		this.carRtoLImage = carRtoLImage.getScaledInstance((int) (FroggerGraphic.pixelByCase/32.0 * carRtoLImage.getWidth(null)), (int) (FroggerGraphic.pixelByCase / 32.0 * carRtoLImage.getHeight(null)), Image.SCALE_SMOOTH);
+		this.truckLtoRImage = truckLtoRImage.getScaledInstance((int) (FroggerGraphic.pixelByCase/32.0 * truckLtoRImage.getWidth(null)), (int) (FroggerGraphic.pixelByCase / 32.0 * truckLtoRImage.getHeight(null)), Image.SCALE_SMOOTH);
+		this.truckRtoLImage = truckRtoLImage.getScaledInstance((int) (FroggerGraphic.pixelByCase/32.0 * truckRtoLImage.getWidth(null)), (int) (FroggerGraphic.pixelByCase / 32.0 * truckRtoLImage.getHeight(null)), Image.SCALE_SMOOTH);
+
 
 		setBackground(Color.GRAY);
 		setPreferredSize(new Dimension(width * pixelByCase, height * pixelByCase));

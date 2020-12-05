@@ -1,10 +1,11 @@
 package environment;
 
-import java.awt.Color;
+import java.awt.*;
 
 
 import gameCommons.Game;
 import graphicalElements.Element;
+import graphicalElements.FroggerGraphic;
 import util.Case;
 
 public class Car {
@@ -19,8 +20,8 @@ public class Car {
 		this.game = game;
 		this.leftPosition = leftPosition;
 		this.leftToRight = leftToRight;
-		int maxCarSize = 3;
-		this.length = game.randomGen.nextInt(maxCarSize) + 1;
+		this.length = game.randomGen.nextInt(2) + 2;
+		System.out.println(length);
 	}
 
 	/**
@@ -73,14 +74,23 @@ public class Car {
 
 	/* Fourni : addToGraphics() permettant d'ajouter un element graphique correspondant a la voiture*/
 	private void addToGraphics() {
-		for (int i = 0; i < length; i++) {
-			Color color = colorRtL;
-			if (this.leftToRight){
-				color = colorLtR;
-			}
-			game.getGraphic()
-					.add(new Element(leftPosition.absc + i, leftPosition.ord, color));
-		}
-	}
+		Image carImage = null;
 
+		if(length == 2){
+			if (leftToRight){
+				carImage = FroggerGraphic.carLtoRImage;
+			} else {
+				carImage = FroggerGraphic.carRtoLImage;
+			}
+		}
+		else if (length == 3){
+			if (leftToRight){
+				carImage = FroggerGraphic.truckLtoRImage;
+			} else {
+				carImage = FroggerGraphic.truckRtoLImage;
+			}
+		}
+
+		game.getGraphic().add(new Element(leftPosition.absc, leftPosition.ord, carImage));
+	}
 }

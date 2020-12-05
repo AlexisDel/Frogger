@@ -27,9 +27,13 @@ public class Element extends Case {
     public Element(Case c, Image image){
         super(c.absc, c.ord);
         this.image = image;
-        this.image = this.image.getScaledInstance(FroggerGraphic.pixelByCase, FroggerGraphic.pixelByCase, Image.SCALE_SMOOTH);
         this.isImage = true;
+    }
 
+    public Element(int absc, int ord, Image image){
+        super(absc, ord);
+        this.image = image;
+        this.isImage = true;
     }
     
 }
