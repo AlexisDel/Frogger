@@ -37,6 +37,5 @@
    * Choix du mode de jeu via une interface graphique (fenetre indépendantes)
    
 #### TODO : 
-   * Sauvegarder le meilleur temps en cas de win dans un fichier (le même que celui du score)
-   * 1 seule fenêtre pour le choix du mode de jeu et le jeu. (clean le code)
+   
    

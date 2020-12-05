@@ -139,7 +139,36 @@ public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListe
 		frame.getContentPane().add(clock);
 
 		frame.repaint();
+	}
 
+	public void endGameScreen(String s, String bestTime, String clk) {
+		frame.remove(this);
+
+		JLabel label = new JLabel(s);
+		label.setFont(new Font("Verdana", 1, 20));
+		label.setHorizontalAlignment(SwingConstants.CENTER);
+		label.setSize(this.getSize());
+
+		JLabel clock= new JLabel("Time : " + clk);
+		clock.setFont(new Font("Verdana", 1, 20));
+		clock.setHorizontalAlignment(JLabel.CENTER);
+		clock.setVerticalAlignment(JLabel.CENTER);
+		clock.setLocation(0,25);
+		clock.setSize(this.getSize());
+
+		JLabel bestTimeLabel= new JLabel("Best time : " + bestTime);
+		bestTimeLabel.setFont(new Font("Verdana", 1, 20));
+		bestTimeLabel.setHorizontalAlignment(JLabel.CENTER);
+		bestTimeLabel.setVerticalAlignment(JLabel.CENTER);
+		bestTimeLabel.setLocation(0,50);
+		bestTimeLabel.setSize(this.getSize());
+
+
+		frame.getContentPane().add(label);
+		frame.getContentPane().add(clock);
+		frame.getContentPane().add(bestTimeLabel);
+
+		frame.repaint();
 	}
 
 	public void endGameScreen(String s, int sc, int highSE, String clk) {

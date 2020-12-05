@@ -33,6 +33,8 @@ public interface IFroggerGraphics {
      */
     public void endGameScreen(String message, String clk);
 
+    public void endGameScreen(String message, String bestTime, String clk);
+
     /**
      * Lance l'écran de fin de partie
      * @param message

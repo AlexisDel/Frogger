@@ -2,6 +2,8 @@ package gameCommons;
 
 import util.Case;
 
+import java.io.IOException;
+
 public interface IEnvironment {
 
 	/**
@@ -22,10 +24,14 @@ public interface IEnvironment {
 	 */
 	public boolean isWinningPosition(Case c);
 
+	long bestTime(long clockStart) throws IOException;
+
+	int bestScore() throws IOException;
+
 	/**
 	 * Effectue une �tape d'actualisation de l'environnement
 	 * Si FrogInf : Gestion du score
 	 */
-	public void update();
+	public void update() throws IOException;
 
 }

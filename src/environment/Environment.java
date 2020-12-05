@@ -1,6 +1,11 @@
 package environment;
 
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 import gameCommons.Game;
 import gameCommons.IEnvironment;
@@ -41,7 +46,35 @@ public class Environment implements IEnvironment {
     }
 
     @Override
-    public void update() {
+    public long bestTime(long clockStart) throws IOException {
+        File highestScore = new File("HighestScore.txt");
+
+        //Récupération du meilleur temps
+        Scanner highestScoreReader = new Scanner(highestScore);
+        String line = highestScoreReader.nextLine();
+        long bestTime = Long.parseLong(line.split(" ")[1]);
+        long actualTime = System.nanoTime() - clockStart;
+
+        //Sauvegarde du meilleur temps
+        if (actualTime < bestTime || bestTime == 0){
+            FileWriter highestScoreWriter = new FileWriter("HighestScore.txt");
+            highestScoreWriter.write(line.split(" ")[0] + " " + actualTime);
+            highestScoreWriter.close();
+            bestTime = actualTime;
+        }
+        return bestTime;
+    }
+
+    /**
+     * DONT USE IT
+     */
+    @Override
+    public int bestScore() throws IOException {
+        return 0;
+    }
+
+    @Override
+    public void update() throws IOException {
         for (Lane lane : lanes) {
             lane.update();
         }
