@@ -2,7 +2,6 @@ package graphicalElements;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-
 import gameCommons.IFrog;
 import util.Direction;
 
@@ -21,6 +20,7 @@ public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListe
 	private IFrog frog;
 	private JFrame frame;
 
+	private Image background;
 	public static Image frogImage;
 	public static Image carLtoRImage;
 	public static Image carRtoLImage;
@@ -33,12 +33,14 @@ public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListe
 		this.height = height;
 		elementsToDisplay = new ArrayList<Element>();
 
+		this.background = ImageIO.read(new File("ressources","road.png"));
 		this.frogImage =  ImageIO.read(new File("ressources","frog.png"));
 		this.carLtoRImage =  ImageIO.read(new File("ressources","carL_R.png"));
 		this.carRtoLImage =  ImageIO.read(new File("ressources","carR_L.png"));
 		this.truckLtoRImage =  ImageIO.read(new File("ressources","truckL_R.png"));
 		this.truckRtoLImage =  ImageIO.read(new File("ressources","truckR_L.png"));
 
+		this.background = background.getScaledInstance((int) (FroggerGraphic.pixelByCase/32.0 * background.getWidth(null)), (int) (FroggerGraphic.pixelByCase / 32.0 * background.getHeight(null)), Image.SCALE_SMOOTH);
 		this.frogImage = frogImage.getScaledInstance((int) (FroggerGraphic.pixelByCase/32.0 * frogImage.getWidth(null)), (int) (FroggerGraphic.pixelByCase / 32.0 * frogImage.getHeight(null)), Image.SCALE_SMOOTH);
 		this.carLtoRImage = carLtoRImage.getScaledInstance((int) (FroggerGraphic.pixelByCase/32.0 * carLtoRImage.getWidth(null)), (int) (FroggerGraphic.pixelByCase / 32.0 * carLtoRImage.getHeight(null)), Image.SCALE_SMOOTH);
 		this.carRtoLImage = carRtoLImage.getScaledInstance((int) (FroggerGraphic.pixelByCase/32.0 * carRtoLImage.getWidth(null)), (int) (FroggerGraphic.pixelByCase / 32.0 * carRtoLImage.getHeight(null)), Image.SCALE_SMOOTH);
@@ -46,7 +48,7 @@ public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListe
 		this.truckRtoLImage = truckRtoLImage.getScaledInstance((int) (FroggerGraphic.pixelByCase/32.0 * truckRtoLImage.getWidth(null)), (int) (FroggerGraphic.pixelByCase / 32.0 * truckRtoLImage.getHeight(null)), Image.SCALE_SMOOTH);
 
 
-		setBackground(Color.GRAY);
+
 		setPreferredSize(new Dimension(width * pixelByCase, height * pixelByCase));
 
 		JFrame frame = new JFrame("Frogger");
@@ -61,6 +63,7 @@ public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListe
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		g.drawImage(background, 0, 0, this);
 		for (Element e : elementsToDisplay) {
 			if(e.isImage) {
 				g.drawImage(e.image, pixelByCase * e.absc, pixelByCase * (height - 1 - e.ord), null);

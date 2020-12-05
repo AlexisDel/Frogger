@@ -132,6 +132,7 @@ public class Game {
 	public boolean testWin() {
 		if (environment.isWinningPosition(frog.getPosition())){
 			graphic.endGameScreen("Win",getElapsedTimeHoursMinutesSecondsFromStart());
+			isGameFinished = true;
 			return true;
 		}
 		return false;

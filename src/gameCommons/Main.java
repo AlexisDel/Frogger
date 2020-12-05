@@ -23,7 +23,7 @@ public class Main {
 		int height = 20;
 		int tempo = 100;
 		int minSpeedInTimerLoops = 3;
-		double defaultDensity = 0.05;
+		double defaultDensity = 0.1;
 
 		long clockStart = System.nanoTime();
 

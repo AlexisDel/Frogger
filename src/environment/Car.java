@@ -21,7 +21,6 @@ public class Car {
 		this.leftPosition = leftPosition;
 		this.leftToRight = leftToRight;
 		this.length = game.randomGen.nextInt(2) + 2;
-		System.out.println(length);
 	}
 
 	/**
