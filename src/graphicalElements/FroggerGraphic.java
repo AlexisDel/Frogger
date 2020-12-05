@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListener {
 	private ArrayList<Element> elementsToDisplay;
-	public static int pixelByCase = 32;
+	public  int pixelByCase;
 	private int width;
 	private int height;
 	private IFrog frog;
@@ -30,9 +30,11 @@ public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListe
 	public static Image truckRtoLImage;
 
 
-	public FroggerGraphic(int width, int height) throws IOException {
+	public FroggerGraphic(int width, int height, int pixelByCase) throws IOException {
 		this.width = width;
 		this.height = height;
+		this.pixelByCase = pixelByCase;
+
 		elementsToDisplay = new ArrayList<Element>();
 
 		this.frogImage =  ImageIO.read(new File("ressources","frog.png"));
@@ -49,7 +51,7 @@ public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListe
 
 		BufferedImage background = new BufferedImage(width * pixelByCase,height * pixelByCase,BufferedImage.TYPE_INT_ARGB);
 		Image road = ImageIO.read(new File("ressources","road.png"));
-		road = road.getScaledInstance( width * pixelByCase, FroggerGraphic.pixelByCase, BufferedImage.SCALE_SMOOTH);
+		road = road.getScaledInstance( width * pixelByCase, pixelByCase, BufferedImage.SCALE_SMOOTH);
 		Graphics2D g = background.createGraphics();
 		for (int i = 0; i < (width); i++){
 			g.drawImage(road, 0, i * pixelByCase, null);

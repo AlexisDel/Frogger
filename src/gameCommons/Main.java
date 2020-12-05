@@ -12,15 +12,13 @@ import frog.Frog;
 import frog.FrogInf;
 import graphicalElements.FroggerGraphic;
 import graphicalElements.IFroggerGraphics;
-import graphicalElements.StartScreen;
+import graphicalElements.StartScreenGUI;
 
 public class Main {
 
 	public static void main(String[] args) throws IOException {
 
 		//Caract�ristiques du jeu
-		int width = 26;
-		int height = 20;
 		int tempo = 100;
 		int minSpeedInTimerLoops = 3;
 		double defaultDensity = 0.1;
@@ -28,18 +26,21 @@ public class Main {
 		long clockStart = System.nanoTime();
 
 		//Fenêtre du choix du mode de jeu
-		StartScreen startScreen = new StartScreen(width, height);
-		while (StartScreen.startScreen){
+		StartScreenGUI startScreenGUI = new StartScreenGUI();
+		while (StartScreenGUI.startScreen){
 			try {
 				Thread.sleep(200);
 			} catch(InterruptedException e) {}
 		}
+		int width = startScreenGUI.gameWidth;
+		int height = startScreenGUI.gameHeight;
+		int pixelByCase = StartScreenGUI.pixelByCase;
 
 		//Cr�ation de l'interface graphique
-		IFroggerGraphics graphic = new FroggerGraphic(width, height);
+		IFroggerGraphics graphic = new FroggerGraphic(width, height, pixelByCase);
 		//Cr�ation de la partie
 		Game game = new Game(graphic, width, height, minSpeedInTimerLoops, defaultDensity, clockStart);
-		game.gamemodeInf = StartScreen.gamemodeInf;
+		game.gamemodeInf = StartScreenGUI.gamemodeInf;
 
 
 		//Création de la grenouille et de l'environement
