@@ -19,7 +19,9 @@ public class Game {
 	public final int minSpeedInTimerLoops;
 	public final double defaultDensity;
 	public boolean isGameFinished;
+
 	public boolean gamemodeInf;
+	public boolean twoPlayers;
 
 	//Gestion du score
 	public int maxScore;
@@ -31,6 +33,7 @@ public class Game {
 	// Lien aux objets utilis�s
 	private IEnvironment environment;
 	private IFrog frog;
+	private IFrog frog2;
 	private final IFroggerGraphics graphic;
 
 	/**
@@ -69,11 +72,19 @@ public class Game {
 	}
 
 	/**
-	 * Lie l' objet frogInf à la partie
+	 * Lie l' objet frog à la partie
 	 * @param frog la grenouille
 	 */
 	public void setFrog(IFrog frog) {
 		this.frog = frog;
+	}
+
+	/**
+	 * Lie l' objet frog à la partie
+	 * @param frog la deuxième grenouille
+	 */
+	public void setFrog2(IFrog frog) {
+		this.frog2 = frog;
 	}
 
 	/**
@@ -152,6 +163,44 @@ public class Game {
 	}
 
 	/**
+	 * Teste si la partie est perdue (mode de jeu 2 joueurs) et lance un écran de fin approprié si tel est le cas
+	 * @return true si le partie est perdue
+	 */
+	public boolean testLose2Players() {
+		if (environment.isSafe(frog.getPosition())){
+			graphic.endGameScreen("Joueur 1 a perdu", getElapsedTimeHoursMinutesSecondsFromStart());
+			isGameFinished = true;
+			return true;
+		}
+		else if (environment.isSafe(frog2.getPosition())){
+			graphic.endGameScreen("Joueur 2 a perdu", getElapsedTimeHoursMinutesSecondsFromStart());
+			isGameFinished = true;
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Teste si la partie est gagnée (mode de jeu 2 joueurs) et lance un �cran de fin approprié si tel est le cas
+	 * @return true si la partie est gagnée
+	 */
+	public boolean testWin2Players() {
+		if (environment.isWinningPosition(frog.getPosition())){
+			graphic.endGameScreen("Joueur 1 a gagné", getElapsedTimeHoursMinutesSecondsFromStart());
+			isGameFinished = true;
+			return true;
+		}
+		else if (environment.isWinningPosition(frog2.getPosition())) {
+			graphic.endGameScreen("Joueur 2 a gagné", getElapsedTimeHoursMinutesSecondsFromStart());
+			isGameFinished = true;
+			return true;
+		}
+		return false;
+	}
+
+
+
+	/**
 	 * getter
 	 * @return frog
 	 */
@@ -170,8 +219,15 @@ public class Game {
 		if(gamemodeInf) {
 			testLoseInf();
 		} else {
-			testLose();
-			testWin();
+			if(twoPlayers){
+				this.graphic.add(new Element(frog2.getPosition(), FroggerGraphic.frogImage));
+				testLose2Players();
+				testWin2Players();
+			}
+			else {
+				testLose();
+				testWin();
+			}
 		}
 	}
 }

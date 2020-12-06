@@ -11,12 +11,14 @@ import java.util.Objects;
 
 public class StartScreenGUI {
 
-    public  boolean startScreen = true;
-    public  boolean gamemodeInf = true;
-    public  int gameWidth;
-    public  int gameHeight;
-    public  int pixelByCase;
-    public  double density;
+    public boolean startScreen = true;
+    public int gameWidth;
+    public int gameHeight;
+    public int pixelByCase;
+    public double density;
+    public boolean gamemodeInf = true;
+    public boolean twoPlayers = false;
+
 
     public StartScreenGUI() throws IOException {
 
@@ -28,14 +30,16 @@ public class StartScreenGUI {
         JLabel froggerLogo = new JLabel(new ImageIcon(froggerLogoImage));
 
         //Elements graphique du centre
-        JLabel gamemodeLabel = new JLabel("Gamemode :");
-        gamemodeLabel.setFont(new Font("Verdana", Font.BOLD, 15));
-
         JButton infiniteGamemodeButton = new JButton("Infinite");
-        infiniteGamemodeButton.addActionListener(actionEvent -> gamemodeInf = true);
 
         JButton finiteGamemodeButton = new JButton("Finite");
         finiteGamemodeButton.addActionListener(actionEvent -> gamemodeInf = false);
+
+        JButton finite2PlayerGamemodeButton = new JButton("2 Players");
+        finite2PlayerGamemodeButton.addActionListener(e -> {
+            gamemodeInf = false;
+            twoPlayers = true;
+        });
 
         JLabel gameSizeLabel = new JLabel("Game size:");
         gameSizeLabel.setFont(new Font("Verdana", Font.BOLD, 15));
@@ -71,9 +75,9 @@ public class StartScreenGUI {
         JPanel panelSetting = new JPanel();
         panelSetting.setLayout(new GridLayout(4,3));
         panelSetting.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-        panelSetting.add(gamemodeLabel);
         panelSetting.add(infiniteGamemodeButton);
         panelSetting.add(finiteGamemodeButton);
+        panelSetting.add(finite2PlayerGamemodeButton);
         panelSetting.add(gameSizeLabel);
         panelSetting.add(gameWidthText);
         panelSetting.add(gameHeightText);

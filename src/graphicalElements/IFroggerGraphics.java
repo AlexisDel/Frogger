@@ -16,7 +16,7 @@ public interface IFroggerGraphics {
     void clear();
     
     /***
-     * Actualise l'affichage
+     * Actualise l' affichage
      */
     void repaint();
     
@@ -25,6 +25,12 @@ public interface IFroggerGraphics {
      * @param frog la grenouille
      */
     void setFrog(IFrog frog);
+
+    /**
+     * Lie la deuxième grenouille � l'environneemnt graphique
+     * @param frog la deuxième grenouille
+     */
+    void setFrog2(IFrog frog);
 
     /**
      * Lance l'écran de fin de partie

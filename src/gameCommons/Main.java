@@ -3,6 +3,7 @@ package gameCommons;
 import environment.Environment;
 import environment.EnvironmentInf;
 import frog.Frog;
+import frog.Frog2Players;
 import frog.FrogInf;
 import graphicalElements.FroggerGraphic;
 import graphicalElements.IFroggerGraphics;
@@ -32,12 +33,14 @@ public class Main {
 		int height = startScreenGUI.gameHeight;
 		int pixelByCase = startScreenGUI.pixelByCase;
 		double defaultDensity = startScreenGUI.density;
+		boolean twoPlayer = startScreenGUI.twoPlayers;
 
 		//Création de l' interface graphique
-		IFroggerGraphics graphic = new FroggerGraphic(width, height, pixelByCase);
+		IFroggerGraphics graphic = new FroggerGraphic(width, height, pixelByCase, twoPlayer);
 		//Création de la partie et choix du mode de jeu
 		Game game = new Game(graphic, width, height, minSpeedInTimerLoops, defaultDensity, clockStart);
 		game.gamemodeInf = startScreenGUI.gamemodeInf;
+		game.twoPlayers = startScreenGUI.twoPlayers;
 
 
 		//Création de la grenouille et de l' environement
@@ -51,11 +54,16 @@ public class Main {
 			env = new Environment(game);
 		}
 
-
 		//Liaison de la grenouille et de l' environement
 		game.setFrog(frog);
 		graphic.setFrog(frog);
 		game.setEnvironment(env);
+
+		if(game.twoPlayers){
+			IFrog frog2 = new Frog2Players(game);
+			game.setFrog2(frog2);
+			graphic.setFrog2(frog2);
+		}
 				
 		//Boucle principale : l' environnement s' actualise tous les tempo millisecondes
 		Timer timer = new Timer(tempo, e -> {

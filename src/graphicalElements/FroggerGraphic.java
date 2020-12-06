@@ -15,22 +15,28 @@ import java.util.ArrayList;
 
 public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListener {
 	private final ArrayList<Element> elementsToDisplay;
+
 	public final int pixelByCase;
 	private final int height;
-	private final JFrame frame;
+	private final boolean twoPlayers;
+
 	private IFrog frog;
+	private IFrog frog2;
+
+	private final JFrame frame;
 	private final Image background;
 
-	public static  Image frogImage;
+	public static Image frogImage;
 	public static Image carLtoRImage;
 	public static Image carRtoLImage;
 	public static Image truckLtoRImage;
 	public static Image truckRtoLImage;
 
 
-	public FroggerGraphic(int width, int height, int pixelByCase) throws IOException {
+	public FroggerGraphic(int width, int height, int pixelByCase, boolean twoPlayers) throws IOException {
 		this.height = height;
 		this.pixelByCase = pixelByCase;
+		this.twoPlayers = twoPlayers;
 
 		elementsToDisplay = new ArrayList<>();
 
@@ -104,6 +110,23 @@ public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListe
 			break;
 		case KeyEvent.VK_RIGHT:
 			frog.move(Direction.right);
+			break;
+		}
+		if (twoPlayers){
+			switch (e.getKeyCode()) {
+				case KeyEvent.VK_Z:
+					frog2.move(Direction.up);
+					break;
+				case KeyEvent.VK_S:
+					frog2.move(Direction.down);
+					break;
+				case KeyEvent.VK_Q:
+					frog2.move(Direction.left);
+					break;
+				case KeyEvent.VK_D:
+					frog2.move(Direction.right);
+					break;
+			}
 		}
 	}
 
@@ -117,6 +140,9 @@ public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListe
 
 	public void setFrog(IFrog frog) {
 		this.frog = frog;
+	}
+	public void setFrog2(IFrog frog) {
+		this.frog2 = frog;
 	}
 
 	public void endGameScreen(String s, String clk) {
