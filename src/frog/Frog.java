@@ -25,6 +25,11 @@ public class Frog implements IFrog {
 	}
 
 	@Override
+	public void setOrd(int ord) {
+		this.ord = ord;
+	}
+
+	@Override
 	public void move(Direction key) {
 		lastDirection = key;
 		switch (key){

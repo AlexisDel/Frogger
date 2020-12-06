@@ -8,13 +8,11 @@ import graphicalElements.Element;
 import graphicalElements.FroggerGraphic;
 import util.Case;
 
-public class Car {
-	private Game game;
+public class Car implements IMovableElement {
+	protected Game game;
 	protected Case leftPosition;
 	private boolean leftToRight;
-	private int length;
-	private final Color colorLtR = Color.BLACK;
-	private final Color colorRtL = Color.BLUE;
+	protected int length;
 
 	public Car(Game game, Case leftPosition, boolean leftToRight) {
 		this.game = game;
@@ -23,10 +21,17 @@ public class Car {
 		this.length = game.randomGen.nextInt(2) + 2;
 	}
 
-	/**
-	 * Si move est "true", fait avancer la voiture. Affiche la voiture dans tout les cas
-	 * @param move
-	 */
+	@Override
+	public boolean isGoodSurprise() {
+		return false;
+	}
+
+	@Override
+	public boolean isTrap(){
+		return false;
+	}
+
+	@Override
 	public void move(boolean move){
 		if (move) {
 			if (this.leftToRight) {
@@ -38,12 +43,8 @@ public class Car {
 		this.addToGraphics();
 	}
 
-	/**
-	 * Retrun true si il y a une voiture sur la case c, false sinon.
-	 * @param c
-	 * @return boolean
-	 */
-	public boolean isCarOnThisCase(Case c){
+	@Override
+	public boolean isElementOnThisCase(Case c){
 		if (c.ord != this.leftPosition.ord) {
 			return false;
 		} else {
@@ -51,18 +52,12 @@ public class Car {
 		}
 	}
 
-	/**
-	 * Retrun true si la voiture est dans la grille du jeu, false sinon
-	 * @return boolean
-	 */
-	public boolean isCarInLane(){
+	@Override
+	public boolean isElementInLane(){
 		return this.leftPosition.absc + this.length > 0 && this.leftPosition.absc < this.game.width;
 	}
 
-	/**
-	 * Fait descendre ou monter les voitures d'une ligne en fonction de "downwards" 
-	 * @param downwards
-	 */
+	@Override
 	public void slide(boolean downwards) {
 		if (downwards) {
 			this.leftPosition = new Case(this.leftPosition.absc, this.leftPosition.ord - 1);
@@ -72,7 +67,7 @@ public class Car {
 	}
 
 	/* Fourni : addToGraphics() permettant d'ajouter un element graphique correspondant a la voiture*/
-	private void addToGraphics() {
+	public void addToGraphics() {
 		Image carImage = null;
 
 		if(length == 2){

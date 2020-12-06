@@ -31,6 +31,7 @@ public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListe
 	public static Image carRtoLImage;
 	public static Image truckLtoRImage;
 	public static Image truckRtoLImage;
+	public static Image surpriseImage;
 
 
 	public FroggerGraphic(int width, int height, int pixelByCase, boolean twoPlayers) throws IOException {
@@ -46,6 +47,7 @@ public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListe
 		carRtoLImage =  ImageIO.read(new File("ressources","carR_L.png"));
 		truckLtoRImage =  ImageIO.read(new File("ressources","truckL_R.png"));
 		truckRtoLImage =  ImageIO.read(new File("ressources","truckR_L.png"));
+		surpriseImage = ImageIO.read(new File("ressources","surprise.png"));
 
 		//Mise à l échelle des ressources en fonction de la taille de la fenêtre
 		frogImage = frogImage.getScaledInstance(pixelByCase, pixelByCase, Image.SCALE_SMOOTH);
@@ -53,6 +55,7 @@ public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListe
 		carRtoLImage = carRtoLImage.getScaledInstance(2 * pixelByCase, pixelByCase, Image.SCALE_SMOOTH);
 		truckLtoRImage = truckLtoRImage.getScaledInstance(3 * pixelByCase, pixelByCase, Image.SCALE_SMOOTH);
 		truckRtoLImage = truckRtoLImage.getScaledInstance(3 * pixelByCase, pixelByCase, Image.SCALE_SMOOTH);
+		surpriseImage = surpriseImage.getScaledInstance(pixelByCase, pixelByCase, Image.SCALE_SMOOTH);
 
 		BufferedImage background = new BufferedImage(width * pixelByCase,height * pixelByCase,BufferedImage.TYPE_INT_ARGB);
 		Image road = ImageIO.read(new File("ressources","road.png"));

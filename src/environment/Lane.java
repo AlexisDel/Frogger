@@ -10,10 +10,12 @@ public class Lane {
 	private final int speed;
 	private final boolean leftToRight;
 	private final double density;
+	private final double probaOfSurprise;
+	private final double getProbaOfSurpriseisTrap;
 	protected int ord;
 	private int timer;
 
-	public ArrayList<Car> cars = new ArrayList<>();
+	public ArrayList<IMovableElement> movableElements = new ArrayList<>();
 
 	public Lane(Game game, int ord) {
 		this.game = game;
@@ -21,22 +23,24 @@ public class Lane {
 		this.speed = game.randomGen.nextInt(game.minSpeedInTimerLoops) + 1;
 		this.leftToRight = game.randomGen.nextBoolean();
 		this.density = game.defaultDensity;
+		this.probaOfSurprise = 0.2;
+		this.getProbaOfSurpriseisTrap = 0.3;
 		this.timer = 0;
 
 		for (int i = 0; i < game.randomGen.nextInt(game.width); i++){
-			this.mayAddCar();
-			this.moveCars(true);
+			this.mayAddElement();
+			this.moveElements(true);
 		}
 	}
 
 	public void update() {
 		timer++;
 		if (timer <= speed){
-			this.moveCars(false);
+			this.moveElements(false);
 		} else {
-			this.mayAddCar();
-			this.moveCars(true);
-			this.removeOldCars();
+			this.mayAddElement();
+			this.moveElements(true);
+			this.removeOldElements();
 			timer = 0;
 
 		}
@@ -46,9 +50,9 @@ public class Lane {
 	/**
 	 * Fait avancer toutes les voitures de la voie et les ajoute à l'interface graphique
 	 */
-	private void moveCars(boolean move) {
-		for (Car car : cars) {
-			car.move(move);
+	private void moveElements(boolean move) {
+		for (IMovableElement e : movableElements) {
+			e.move(move);
 		}
 	}
 
@@ -57,9 +61,9 @@ public class Lane {
 	 * @param c une case
 	 * @return boolean
 	 */
-	private boolean isSafe(Case c) {
-		for (Car car : cars) {
-			if (car.isCarOnThisCase(c)) {
+	private boolean isOkToAddSomething(Case c) {
+		for (IMovableElement e : movableElements) {
+			if (e.isElementOnThisCase(c)) {
 				return false;
 			}
 		}
@@ -69,15 +73,15 @@ public class Lane {
 	/**
 	 * Supprime les voitures qui ne sont plus dans la grille du jeu
 	 */
-	private void removeOldCars() {
-		ArrayList<Car> carsToBeRemoved = new ArrayList<>();
-		for (Car car : cars) {
-			if (!car.isCarInLane()) {
-				carsToBeRemoved.add(car);
+	private void removeOldElements() {
+		ArrayList<IMovableElement> elementsToBeRemoved = new ArrayList<>();
+		for (IMovableElement e : movableElements) {
+			if (!e.isElementInLane()) {
+				elementsToBeRemoved.add(e);
 			}
 		}
-		for (Car car : carsToBeRemoved) {
-			cars.remove(car);
+		for (IMovableElement e : elementsToBeRemoved) {
+			movableElements.remove(e);
 		}
 	}
 
@@ -91,23 +95,27 @@ public class Lane {
 		} else {
 			this.ord++;
 		}
-		for (Car car : cars){
-			car.slide(downwards);
+		for (IMovableElement e : movableElements){
+			e.slide(downwards);
 		}
 	}
-
-	/*
-	 * Fourni : mayAddCar(), getFirstCase() et getBeforeFirstCase() 
-	 */
 
 	/**
 	 * Ajoute une voiture au d�but de la voie avec probabilit� �gale � la
 	 * densit�, si la premi�re case de la voie est vide
 	 */
-	private void mayAddCar() {
-		if (isSafe(getFirstCase()) && isSafe(getBeforeFirstCase())) {
+	private void mayAddElement() {
+		if (isOkToAddSomething(getFirstCase()) && isOkToAddSomething(getBeforeFirstCase())) {
 			if (game.randomGen.nextDouble() < density) {
-				cars.add(new Car(game, getBeforeFirstCase(), leftToRight));
+				if(game.randomGen.nextDouble() < probaOfSurprise){
+					if(game.randomGen.nextDouble() < getProbaOfSurpriseisTrap){
+						movableElements.add(new Surprise(game, getBeforeFirstCase(), leftToRight, true));
+					} else {
+						movableElements.add(new Surprise(game, getBeforeFirstCase(), leftToRight, false));
+					}
+				} else {
+					movableElements.add(new Car(game, getBeforeFirstCase(), leftToRight));
+				}
 			}
 		}
 	}

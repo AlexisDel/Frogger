@@ -12,6 +12,12 @@ public interface IFrog {
 	Case getPosition();
 
 	/**
+	 * Setter
+	 * @param ord ordonné à attribuer
+	 */
+	void setOrd(int ord);
+
+	/**
 	 * D�place la grenouille dans la direction donn�e
 	 * Si FrogInf : Gestion des variables de déplacement de la grilles (movedUp & movedDown)
 	 * @param key direction

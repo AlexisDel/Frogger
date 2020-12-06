@@ -15,10 +15,7 @@ public class EnvironmentInf extends Environment {
 
     }
 
-    /**
-     * Fait monter ou descendre toutes les lignes et leurs voitures
-     * @param downwards boolean true si slide vers le bas, false si vers le haut
-     */
+    @Override
     public void slideRoad(boolean downwards){
         for (Lane lane : lanes){
             lane.slideLane(downwards);
@@ -28,7 +25,7 @@ public class EnvironmentInf extends Environment {
     /**
      * Ajoute une ligne tout en haut de la grille
      */
-    public void addTopLane(){
+    private void addTopLane(){
         this.lanes.add(new Lane(game,game.height));
     }
 

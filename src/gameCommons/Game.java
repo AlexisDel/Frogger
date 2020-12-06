@@ -8,6 +8,7 @@ import java.util.Random;
 import graphicalElements.Element;
 import graphicalElements.FroggerGraphic;
 import graphicalElements.IFroggerGraphics;
+import util.Case;
 
 public class Game {
 
@@ -126,7 +127,7 @@ public class Game {
 	 * @return true si le partie est perdue
 	 */
 	public boolean testLoseInf() throws IOException {
-		if(this.environment.isSafe(this.frog.getPosition())){
+		if(!this.environment.isSafe(this.frog.getPosition())){
 			int bestScore = environment.bestScore();
 			this.graphic.endGameScreen("YOU LOST",this.score,bestScore, getElapsedTimeHoursMinutesSecondsFromStart());
 			isGameFinished = true;
@@ -140,7 +141,7 @@ public class Game {
 	 * @return true si le partie est perdue
 	 */
 	public boolean testLose() {
-		if (environment.isSafe(frog.getPosition())){
+		if (!environment.isSafe(frog.getPosition())){
 			graphic.endGameScreen("Lose", getElapsedTimeHoursMinutesSecondsFromStart());
 			isGameFinished = true;
 			return true;
@@ -167,12 +168,12 @@ public class Game {
 	 * @return true si le partie est perdue
 	 */
 	public boolean testLose2Players() {
-		if (environment.isSafe(frog.getPosition())){
+		if (!environment.isSafe(frog.getPosition())){
 			graphic.endGameScreen("Joueur 1 a perdu", getElapsedTimeHoursMinutesSecondsFromStart());
 			isGameFinished = true;
 			return true;
 		}
-		else if (environment.isSafe(frog2.getPosition())){
+		else if (!environment.isSafe(frog2.getPosition())){
 			graphic.endGameScreen("Joueur 2 a perdu", getElapsedTimeHoursMinutesSecondsFromStart());
 			isGameFinished = true;
 			return true;
@@ -198,7 +199,31 @@ public class Game {
 		return false;
 	}
 
-
+	/**
+	 * Teste si la frogg a marché sur une surprise et si c'est le cas la frog saute jusqu'a une case "safe"
+	 */
+	public void testOnSurprise(IFrog frog){
+		if (environment.onGoodSurprise(frog.getPosition())){
+			int caseToJump = 3;
+			while (!environment.isSafe(new Case(frog.getPosition().absc, frog.getPosition().ord+caseToJump))
+					|| !environment.isSafe(new Case(frog.getPosition().absc+1, frog.getPosition().ord+caseToJump))
+					|| !environment.isSafe(new Case(frog.getPosition().absc-1, frog.getPosition().ord+caseToJump))
+					|| !environment.isSafe(new Case(frog.getPosition().absc+2, frog.getPosition().ord+caseToJump))
+					|| !environment.isSafe(new Case(frog.getPosition().absc-2, frog.getPosition().ord+caseToJump))
+					|| !environment.isSafe(new Case(frog.getPosition().absc+3, frog.getPosition().ord+caseToJump))
+					|| !environment.isSafe(new Case(frog.getPosition().absc-3, frog.getPosition().ord+caseToJump)))
+			{
+				caseToJump++;
+			}
+			if (gamemodeInf){
+				for(int i = 0; i < caseToJump; i++){
+					environment.slideRoad(true);
+				}
+			} else {
+				frog.setOrd(frog.getPosition().ord + caseToJump);
+			}
+		}
+	}
 
 	/**
 	 * getter
@@ -217,14 +242,18 @@ public class Game {
 		environment.update();
 		this.graphic.add(new Element(frog.getPosition(), FroggerGraphic.frogImage));
 		if(gamemodeInf) {
+			testOnSurprise(frog);
 			testLoseInf();
 		} else {
 			if(twoPlayers){
 				this.graphic.add(new Element(frog2.getPosition(), FroggerGraphic.frogImage));
+				testOnSurprise(frog);
+				testOnSurprise(frog2);
 				testLose2Players();
 				testWin2Players();
 			}
 			else {
+				testOnSurprise(frog);
 				testLose();
 				testWin();
 			}

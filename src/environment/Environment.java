@@ -25,18 +25,30 @@ public class Environment implements IEnvironment {
     @Override
     public boolean isSafe(Case c) {
         for (Lane lane : lanes) {
-            for (Car car : lane.cars) {
-                if (car.isCarOnThisCase(c)) {
-                    return true;
+            for (IMovableElement e : lane.movableElements) {
+                if (e.isElementOnThisCase(c) && !e.isGoodSurprise()) {
+                    return false;
                 }
             }
         }
-        return false;
+        return true;
     }
 
     @Override
     public boolean isWinningPosition(Case c) {
         return c.ord == game.height - 1;
+    }
+
+    @Override
+    public boolean onGoodSurprise(Case c) {
+        for (Lane lane : lanes){
+            for (IMovableElement e : lane.movableElements){
+                if(e.isElementOnThisCase(c) && e.isGoodSurprise()){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     @Override
@@ -67,6 +79,15 @@ public class Environment implements IEnvironment {
     @Override
     public int bestScore() throws IOException {
         return 0;
+    }
+
+    /**
+     * DONT USE IT
+     * @param downwards null
+     */
+    @Override
+    public void slideRoad(boolean downwards) {
+
     }
 
     @Override

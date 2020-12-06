@@ -25,6 +25,13 @@ public interface IEnvironment {
 	boolean isWinningPosition(Case c);
 
 	/**
+	 * Test si la case est une bonne surprise (pas une trap)
+	 * @param c la caseà tester
+	 * @return true si la case est surprise mais pas un trap
+	 */
+	boolean onGoodSurprise(Case c);
+
+	/**
 	 * Lis le meilleur temps dans le fichier "HighestScore.txt" et le change si il a été battu.
 	 * @param clockStart le temps actuel
 	 * @return long le meilleur temps
@@ -38,6 +45,12 @@ public interface IEnvironment {
 	 * @throws IOException impossible de lire ou d' écrire dans le fichier
 	 */
 	int bestScore() throws IOException;
+
+	/**
+	 * Fait monter ou descendre toutes les lignes et leurs voitures
+	 * @param downwards boolean true si slide vers le bas, false si vers le haut
+	 */
+	void slideRoad(boolean downwards);
 
 	/**
 	 * Effectue une �tape d' actualisation de l' environnement
