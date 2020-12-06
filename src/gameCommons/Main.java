@@ -59,6 +59,7 @@ public class Main {
 		graphic.setFrog(frog);
 		game.setEnvironment(env);
 
+		//Création de la deuxième grenouille
 		if(game.twoPlayers){
 			IFrog frog2 = new Frog2Players(game);
 			game.setFrog2(frog2);

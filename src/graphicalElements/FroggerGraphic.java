@@ -58,7 +58,7 @@ public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListe
 		Image road = ImageIO.read(new File("ressources","road.png"));
 		road = road.getScaledInstance( width * pixelByCase, pixelByCase, BufferedImage.SCALE_SMOOTH);
 		Graphics2D g = background.createGraphics();
-		for (int i = 0; i < (width); i++){
+		for (int i = 0; i < (height); i++){
 			g.drawImage(road, 0, i * pixelByCase, null);
 		}
 		g.dispose();
