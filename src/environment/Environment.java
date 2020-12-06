@@ -36,7 +36,7 @@ public class Environment implements IEnvironment {
 
     @Override
     public boolean isWinningPosition(Case c) {
-        return c.ord == game.height - 1;
+        return c.ord >= game.height - 1;
     }
 
     @Override
