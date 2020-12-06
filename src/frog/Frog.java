@@ -25,11 +25,6 @@ public class Frog implements IFrog {
 	}
 
 	@Override
-	public Direction getDirection() {
-		return lastDirection;
-	}
-
-	@Override
 	public void move(Direction key) {
 		lastDirection = key;
 		switch (key){

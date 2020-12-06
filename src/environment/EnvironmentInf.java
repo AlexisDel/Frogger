@@ -3,7 +3,6 @@ package environment;
 import gameCommons.Game;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
@@ -18,7 +17,7 @@ public class EnvironmentInf extends Environment {
 
     /**
      * Fait monter ou descendre toutes les lignes et leurs voitures
-     * @param downwards
+     * @param downwards boolean true si slide vers le bas, false si vers le haut
      */
     public void slideRoad(boolean downwards){
         for (Lane lane : lanes){

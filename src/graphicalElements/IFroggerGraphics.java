@@ -6,41 +6,47 @@ public interface IFroggerGraphics {
 	
 	/**
 	 * Ajoute l'�l�ment aux �l�ments � afficher
-	 * @param e
+	 * @param e un élément graphique
 	 */
-    public void add(Element e);
+    void add(Element e);
     
     /**
      * Enl�ve tous les �l�ments actuellement affich�s
      */
-    public void clear();
+    void clear();
     
     /***
      * Actualise l'affichage
      */
-    public void repaint();
+    void repaint();
     
     /**
      * Lie la grenouille � l'environneemnt graphique
-     * @param frog
+     * @param frog la grenouille
      */
-    public void setFrog(IFrog frog);
+    void setFrog(IFrog frog);
 
     /**
      * Lance l'écran de fin de partie
-     * @param message
-     * @param clk
+     * @param message un message à affiché
+     * @param clk le temps actuel
      */
-    public void endGameScreen(String message, String clk);
-
-    public void endGameScreen(String message, String bestTime, String clk);
+    void endGameScreen(String message, String clk);
 
     /**
      * Lance l'écran de fin de partie
-     * @param message
-     * @param sc
-     * @param highSE
-     * @param clk
+     * @param message un message à affiché
+     * @param bestTime le meilleur temps
+     * @param clk le temps de la partie
      */
-    public void endGameScreen(String message, int sc, int highSE, String clk);
+    void endGameScreen(String message, String bestTime, String clk);
+
+    /**
+     * Lance l'écran de fin de partie
+     * @param message un message à affiché
+     * @param sc le score de la partie
+     * @param highSE le meilleur score
+     * @param clk le temps de la partie
+     */
+    void endGameScreen(String message, int sc, int highSE, String clk);
 }

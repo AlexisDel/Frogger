@@ -6,11 +6,11 @@ import gameCommons.Game;
 import util.Case;
 
 public class Lane {
-	private Game game;
+	private final Game game;
+	private final int speed;
+	private final boolean leftToRight;
+	private final double density;
 	protected int ord;
-	private int speed;
-	private boolean leftToRight;
-	private double density;
 	private int timer;
 
 	public ArrayList<Car> cars = new ArrayList<>();
@@ -54,7 +54,7 @@ public class Lane {
 
 	/**
 	 * Return true si la case c est safe (si il n'y a pas de voiture sur la case c)
-	 * @param c
+	 * @param c une case
 	 * @return boolean
 	 */
 	private boolean isSafe(Case c) {
@@ -83,7 +83,7 @@ public class Lane {
 
 	/**
 	 * Fait descendre ou monter une ligne et ses voitures d'une ligne en fonction de "downwards"
-	 * @param downwards
+	 * @param downwards boolean true si slide vers le bas, false si vers le haut
 	 */
 	public void slideLane(boolean downwards) {
 		if(downwards) {

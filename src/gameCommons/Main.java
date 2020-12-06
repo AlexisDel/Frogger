@@ -1,11 +1,5 @@
 package gameCommons;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.IOException;
-
-import javax.swing.Timer;
-
 import environment.Environment;
 import environment.EnvironmentInf;
 import frog.Frog;
@@ -14,36 +8,39 @@ import graphicalElements.FroggerGraphic;
 import graphicalElements.IFroggerGraphics;
 import graphicalElements.StartScreenGUI;
 
+import javax.swing.*;
+import java.io.IOException;
+
 public class Main {
 
 	public static void main(String[] args) throws IOException {
 
-		//Caract�ristiques du jeu
+		//Caractéristiques fixes du jeu
 		int tempo = 100;
 		int minSpeedInTimerLoops = 3;
-
 		long clockStart = System.nanoTime();
 
 		//Fenêtre du choix du mode de jeu
 		StartScreenGUI startScreenGUI = new StartScreenGUI();
-		while (StartScreenGUI.startScreen){
+		while (startScreenGUI.startScreen){
 			try {
 				Thread.sleep(200);
-			} catch(InterruptedException e) {}
+			} catch(InterruptedException ignored) {}
 		}
+		//Caractéristiques variables du jeu
 		int width = startScreenGUI.gameWidth;
 		int height = startScreenGUI.gameHeight;
-		int pixelByCase = StartScreenGUI.pixelByCase;
-		double defaultDensity = StartScreenGUI.density;
+		int pixelByCase = startScreenGUI.pixelByCase;
+		double defaultDensity = startScreenGUI.density;
 
-		//Cr�ation de l'interface graphique
+		//Création de l' interface graphique
 		IFroggerGraphics graphic = new FroggerGraphic(width, height, pixelByCase);
-		//Cr�ation de la partie
+		//Création de la partie et choix du mode de jeu
 		Game game = new Game(graphic, width, height, minSpeedInTimerLoops, defaultDensity, clockStart);
-		game.gamemodeInf = StartScreenGUI.gamemodeInf;
+		game.gamemodeInf = startScreenGUI.gamemodeInf;
 
 
-		//Création de la grenouille et de l'environement
+		//Création de la grenouille et de l' environement
 		IFrog frog;
 		IEnvironment env;
 		if (game.gamemodeInf) {
@@ -55,23 +52,20 @@ public class Main {
 		}
 
 
-		//Lisaison de la grenouille et de l'environement
+		//Liaison de la grenouille et de l' environement
 		game.setFrog(frog);
 		graphic.setFrog(frog);
 		game.setEnvironment(env);
 				
-		//Boucle principale : l'environnement s'acturalise tous les tempo milisecondes
-		Timer timer = new Timer(tempo, new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (!game.isGameFinished) {
-					try {
-						game.update(game.gamemodeInf);
-					} catch (IOException ioException) {
-						ioException.printStackTrace();
-					}
-					graphic.repaint();
+		//Boucle principale : l' environnement s' actualise tous les tempo millisecondes
+		Timer timer = new Timer(tempo, e -> {
+			if (!game.isGameFinished) {
+				try {
+					game.update(game.gamemodeInf);
+				} catch (IOException ioException) {
+					ioException.printStackTrace();
 				}
+				graphic.repaint();
 			}
 		});
 		timer.setInitialDelay(0);

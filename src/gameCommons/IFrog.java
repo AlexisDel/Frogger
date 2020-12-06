@@ -7,20 +7,14 @@ public interface IFrog {
 	
 	/**
 	 * Donne la position actuelle de la grenouille
-	 * @return
+	 * @return case
 	 */
 	Case getPosition();
-	
-	/**
-	 * Donne la direction de la grenouille, c'est � dire de son dernier mouvement 
-	 * @return
-	 */
-	Direction getDirection();
-	
+
 	/**
 	 * D�place la grenouille dans la direction donn�e
-	 * Si FrogInf : Gestion des variables de dépélacement de la grilles (movedUp & movedDown)
-	 * @param key
+	 * Si FrogInf : Gestion des variables de déplacement de la grilles (movedUp & movedDown)
+	 * @param key direction
 	 */
 	void move(Direction key);
 
@@ -37,7 +31,7 @@ public interface IFrog {
 	boolean isMovedDown();
 
 	/**
-	 * Reset les varabiables de déplacement vertical (movedUp & movedDown)
+	 * Reset les variables de déplacement vertical (movedUp & movedDown)
 	 */
 	void resetBools();
 }

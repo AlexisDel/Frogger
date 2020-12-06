@@ -1,6 +1,5 @@
 package gameCommons;
 
-import java.awt.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,14 +9,11 @@ import graphicalElements.Element;
 import graphicalElements.FroggerGraphic;
 import graphicalElements.IFroggerGraphics;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
-
 public class Game {
 
 	public final Random randomGen = new Random();
 
-	// Caracteristique de la partie
+	//Caractéristique de la partie
 	public final int width;
 	public final int height;
 	public final int minSpeedInTimerLoops;
@@ -30,25 +26,25 @@ public class Game {
 	public int score;
 
 	//Clock
-	private long clockStart;
+	private final long clockStart;
 
 	// Lien aux objets utilis�s
 	private IEnvironment environment;
 	private IFrog frog;
-	private IFroggerGraphics graphic;
+	private final IFroggerGraphics graphic;
 
 	/**
 	 * 
 	 * @param graphic
-	 *            l'interface graphique
+	 *            l' interface graphique
 	 * @param width
 	 *            largeur en cases
 	 * @param height
 	 *            hauteur en cases
 	 * @param minSpeedInTimerLoop
-	 *            Vitesse minimale, en nombre de tour de timer avant d�placement
+	 *            Vitesse minimale, en nombre de tour de timer avant déplacement
 	 * @param defaultDensity
-	 *            densite de voiture utilisee par defaut pour les routes
+	 *            densité de voiture utilisée par défaut pour les routes
 	 */
 	public Game(IFroggerGraphics graphic, int width, int height, int minSpeedInTimerLoop, double defaultDensity, long clockStart) throws IOException {
 		super();
@@ -73,16 +69,16 @@ public class Game {
 	}
 
 	/**
-	 * Lie l'objet frogInf à la partie
-	 * @param frog
+	 * Lie l' objet frogInf à la partie
+	 * @param frog la grenouille
 	 */
 	public void setFrog(IFrog frog) {
 		this.frog = frog;
 	}
 
 	/**
-	 * Lie l'objet environment à la partie
-	 * @param environment
+	 * Lie l' objet environment à la partie
+	 * @param environment l' environement de la partie
 	 */
 	public void setEnvironment(IEnvironment environment) {
 		this.environment = environment;
@@ -102,8 +98,7 @@ public class Game {
 		String seconds = String.format(format, elapsedTime % 60);
 		String minutes = String.format(format, (elapsedTime % 3600) / 60);
 		String hours = String.format(format, elapsedTime / 3600);
-		String time =  hours + ":" + minutes + ":" + seconds;
-		return time;
+		return hours + ":" + minutes + ":" + seconds;
 	}
 
 	private String getElapsedTimeHoursMinutesSeconds(long t){
@@ -112,16 +107,15 @@ public class Game {
 		String seconds = String.format(format, elapsedTime % 60);
 		String minutes = String.format(format, (elapsedTime % 3600) / 60);
 		String hours = String.format(format, elapsedTime / 3600);
-		String time =  hours + ":" + minutes + ":" + seconds;
-		return time;
+		return hours + ":" + minutes + ":" + seconds;
 	}
 
 	/**
-	 * Teste si la partie est perdue (mode de jeu infini) et lance un �cran de fin appropri� si tel est le cas
+	 * Teste si la partie est perdue (mode de jeu infini) et lance un �cran de fin approprié si tel est le cas
 	 * @return true si le partie est perdue
 	 */
 	public boolean testLoseInf() throws IOException {
-		if(!this.environment.isSafe(this.frog.getPosition())){
+		if(this.environment.isSafe(this.frog.getPosition())){
 			int bestScore = environment.bestScore();
 			this.graphic.endGameScreen("YOU LOST",this.score,bestScore, getElapsedTimeHoursMinutesSecondsFromStart());
 			isGameFinished = true;
@@ -135,7 +129,7 @@ public class Game {
 	 * @return true si le partie est perdue
 	 */
 	public boolean testLose() {
-		if (!environment.isSafe(frog.getPosition())){
+		if (environment.isSafe(frog.getPosition())){
 			graphic.endGameScreen("Lose", getElapsedTimeHoursMinutesSecondsFromStart());
 			isGameFinished = true;
 			return true;
@@ -144,8 +138,8 @@ public class Game {
 	}
 
 	/**
-	 * Teste si la partie est gagnée (mode de jeu fini) et lance un �cran de fin appropri� si tel est le cas
-	 * @return true si la partie est gagn�e
+	 * Teste si la partie est gagnée (mode de jeu fini) et lance un �cran de fin approprié si tel est le cas
+	 * @return true si la partie est gagnée
 	 */
 	public boolean testWin() throws IOException {
 		if (environment.isWinningPosition(frog.getPosition())){
@@ -166,7 +160,7 @@ public class Game {
 	}
 
 	/**
-	 * Actualise l'environnement, affiche la grenouille et gère le score
+	 * Actualise l' environnement, affiche la grenouille et gère le score
 	 * partie.
 	 */
 	public void update(boolean gamemodeInf) throws IOException {

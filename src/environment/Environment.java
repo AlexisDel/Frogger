@@ -1,10 +1,7 @@
 package environment;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 import gameCommons.Game;
@@ -30,19 +27,16 @@ public class Environment implements IEnvironment {
         for (Lane lane : lanes) {
             for (Car car : lane.cars) {
                 if (car.isCarOnThisCase(c)) {
-                    return false;
+                    return true;
                 }
             }
         }
-        return true;
+        return false;
     }
 
     @Override
     public boolean isWinningPosition(Case c) {
-        if (c.ord == game.height - 1) {
-            return true;
-        }
-        return false;
+        return c.ord == game.height - 1;
     }
 
     @Override
@@ -67,6 +61,8 @@ public class Environment implements IEnvironment {
 
     /**
      * DONT USE IT
+     * @return 0
+     * @throws IOException null
      */
     @Override
     public int bestScore() throws IOException {
