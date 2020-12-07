@@ -1,41 +1,29 @@
-# Etape n°3 du projet Frogger
+# Projet IPO S3 "Frogger"
 
 #### Statut : :heavy_check_mark:
 
-#### Classes et méthodes ajoutées :
-1. Car
-   * slide
-2. Lane
-   * slideLane
-3. FrogInf
-   * resetBools
-   * isMovedUp
-   * isMovedDown   
-4. EnvironmentInf
-   * slideRoad
-   * addTopLane
-   * saveAndReadScore
-5. Game
-   * getElapsedTimeHoursMinutesFromStart
-6. StartScreen    
+#### Etudiants :
 
-#### Modifications / Ajouts :
-1. Main
-   * Choix du mode de jeu via.
-   * Fix : Fin de la partie => n'update plus l'environement.
-2. Game
-   * Gestion de la fin de la partie en fonction du mode de jeu.
-   * Ajout d'un Timer
-3. FroggerGraphic
-   * Ajout de l'affichage du score, du meilleur score, et du meilleur score de tout les temps à la fin de la partie.
-   * Affichage du Timer à la fin de la partie.
-4. FrogInf
-   * Gestion des déplacements de la grille.
-5. EnvironmentInf
-   * Gestion du score.
-6. StartScreen
-   * Choix du mode de jeu via une interface graphique (fenetre indépendantes)
-   
-#### TODO : 
-   
-   
+* Jacobo Ruiz Ocampo
+* Alexis Delplace
+
+#### Implémentations :
+
+###### Base :
+
+* Partie 1
+* Partie 2 (mode de jeu fini)
+* Partie 3 (mode de jeu infini)
+
+###### Ajouts :
+
+* Score : affichage à la fin de la partie & sauvegarde du meilleur score
+* Timer : affichage à la fin de la partie & sauvegarde du meilleur temps
+* Surprise :
+   * 1/3 : Piège → Partie perdu
+   * 2/3 : Bonus → Fait avancer la grenouille d'au moins 3 cases (jusqu'à la prochaine case sûre)
+* Menu Principal : Choix du mode de jeu, de la difficulté, de la taille du terrain et de la taille de la fenêtre (via pixelByCase)
+* Mode de jeu : 2 joueurs
+* Meilleur rendu graphique :
+   * Chaque élément a un rendu graphique particulié et il est mis à l'echelle en fonction de la taille de la fenêtre
+   * Création du background en fonction des paramètres rentré dans le menu principal (taille du terrain et de la fenêtre)
