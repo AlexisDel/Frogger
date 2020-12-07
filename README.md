@@ -22,8 +22,8 @@
 * Surprise :
    * 1/3 : Piège → Partie perdu
    * 2/3 : Bonus → Fait avancer la grenouille d'au moins 3 cases (jusqu'à la prochaine case sûre)
-* Menu Principal : Choix du mode de jeu, de la difficulté, de la taille du terrain et de la taille de la fenêtre (via pixelByCase)
+* Menu Principal : Choix du mode de jeu, de la difficulté, de la taille du terrain, et de la taille de la fenêtre (via pixelByCase)
 * Mode de jeu : 2 joueurs
 * Meilleur rendu graphique :
    * Chaque élément a un rendu graphique particulié et il est mis à l'echelle en fonction de la taille de la fenêtre
-   * Création du background en fonction des paramètres rentré dans le menu principal (taille du terrain et de la fenêtre)
+   * Création du background en fonction des paramètres rentrés dans le menu principal (taille du terrain et de la fenêtre)
