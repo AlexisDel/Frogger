@@ -1,6 +1,6 @@
 # Projet IPO S3 "Frogger"
 
-#### Statut : :heavy_check_mark:
+![frogger](https://user-images.githubusercontent.com/22059248/121902862-015a1980-cd28-11eb-8355-b1e14de8857c.png)
 
 #### Etudiants :
 
